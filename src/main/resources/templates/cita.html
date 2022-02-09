@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="cita">
+    <div class="card mt-4 shadow-sm bg-white rounded">
+        <div class="card-header">
+            Quote
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p th:text="${cita.getContent()}">A well-known quote, contained in a blockquote element.</p>
+                <footer class="blockquote-footer" th:text="${cita.getAuthor()} +' - ' +${#calendars.format(cita.getDateAdded(),'dd MMMM yyyy')}"></footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+</html>

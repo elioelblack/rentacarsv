@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import sv.rentacar.api.dto.CitaDto;
 import sv.rentacar.api.entity.Automovil;
 import sv.rentacar.api.service.api.AutomovilServiceAPI;
 
@@ -20,6 +22,9 @@ public class AutomovilController {
 
     @Autowired
     private AutomovilServiceAPI automovilServiceAPI;
+    @Autowired
+    private RestTemplate restTemplate;
+    private static String urlApiRemote = "https://api.quotable.io/random";
 
     @GetMapping("/")
     public String findAll(@RequestParam Map<String, Object> params, Model model){
@@ -30,12 +35,19 @@ public class AutomovilController {
         int totalPage = pageAutomovil.getTotalPages();
         if(totalPage>0){
             List<Integer> pages = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages",pages);
         }
-
+        CitaDto cita = restTemplate.getForObject(urlApiRemote,CitaDto.class);
+        model.addAttribute("cita",cita);
         model.addAttribute("list",pageAutomovil.getContent());
-
+        model.addAttribute("current",page+1);
+        model.addAttribute("next",page+2);
+        model.addAttribute("prev",page);
+        model.addAttribute("last",totalPage);
         return "index";
     }
+
+
 
     @GetMapping("/test")
     public String test(){

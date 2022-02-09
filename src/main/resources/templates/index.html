@@ -19,7 +19,7 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/automovil">Administrar Automóviles</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -30,30 +30,39 @@
 </nav>
 
 <main class="container mb-5">
-    <section>
-        <div class="card mt-4 shadow-sm bg-white rounded">
-            <div class="card-header">
-                Quote
-            </div>
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>A well-known quote, contained in a blockquote element.</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
-            </div>
-        </div>
+    <section th:replace="/cita :: cita">
+
     </section>
 
     <h1 class="mt-5">Mira el catalogo de todos nuestros autos</h1>
-    <h2 th:if="${list.isEmpty()}">No hay datos</h2>
-    <div class="card" style="width: 18rem;" th:each="auto : ${list}">
-        <img src="https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/20200212-RANKING-DE-FIABILIDAD-DE-AUTOS-JD-POWER-2020-01.jpg" class="card-img-top">
-        <div class="card-body">
-            <h5 class="card-title" th:text="${auto.nombre}">Nombre del carro</h5>
-            <h6 class="card-title">Precio: <span>$$$</span></h6>
-            <p class="card-text">descripcion</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detalleCarro">Ver detalles</a>
+    <div th:if="${list.isEmpty()}" class="alert alert-warning" role="alert">
+        <h2 >No hay datos</h2>
+    </div>
+    <div class="row align-items-center">
+        <div class="card col-3" style="width: 90%; padding: 5px;" th:each="auto : ${list}">
+            <img src="https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/20200212-RANKING-DE-FIABILIDAD-DE-AUTOS-JD-POWER-2020-01.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${auto.nombre}">Nombre del carro</h5>
+                <h6 class="card-title" th:text="'$' + ${auto.precioRenta}">Precio: <span>$$$</span></h6>
+                <p class="card-text" th:text="${auto.idModelo.decripcion}">descripcion</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detalleCarro">Ver detalles</a>
+            </div>
         </div>
+    </div>
+    <div class="row" style="margin: 5px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${prev==0?'disabled':''}"><a class="page-link" th:href="@{|/?page=${prev}|}">Previous</a></li>
+                    <li class="page-item" th:each="page : ${pages}">
+                        <a class="page-link" th:href="@{|/?page=${page}|}" th:text="${page}" th:classappend="${current==page?'active':''}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${current==last?'disabled':''}"><a class="page-link" th:href="@{|/?page=${next}|}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2"></div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="detalleCarro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
