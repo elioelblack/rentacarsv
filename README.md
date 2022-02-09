@@ -1,13 +1,24 @@
-# rentacarsv
+# Rentacarsv
+
 Renta de vehiculos Spring boot + thymeleaf
 
-Script Sql en : /sql
-Crear BD con nombre rentacarsv,
-user: eliezer
-password: 123
+## Configuración
 
-Pueden cambiar las credenciales de la BD en el archivo aplication.properties
+Script Sql en : /sql/rentacarsv.sql
 
-Usuarios en la BD:
-admin : 123
-user : 123
+```bash
+Crear BD con nombre #rentacarsv
+# user: eliezer
+# password: 123
+```
+
+## Ejecución en local
+
+```bash
+Importar en  #Eclipse o IntellJIdea
+# Run al proyecto, no hay necesidad de instalar servidor ya que levanta con tomcat localmente
+```
+
+
+## License
+[MIT](https://github.com/elioelblack)
