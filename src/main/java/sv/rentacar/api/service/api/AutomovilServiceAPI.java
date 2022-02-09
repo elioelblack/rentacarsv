@@ -8,4 +8,6 @@ public interface AutomovilServiceAPI {
 
     Page<Automovil> getAll(Pageable pageable);
 
+    Page<Automovil> getAllActives(Pageable pageable, boolean activo, boolean disponible);
+
 }

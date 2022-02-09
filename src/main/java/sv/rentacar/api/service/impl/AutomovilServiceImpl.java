@@ -18,4 +18,10 @@ public class AutomovilServiceImpl implements AutomovilServiceAPI {
     public Page<Automovil> getAll(Pageable pageable) {
         return automovilRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Automovil> getAllActives(Pageable pageable, boolean activo, boolean disponible) {
+        return automovilRepository.findAllByActivoAndDisponible(pageable, activo, disponible);
+    }
+
 }

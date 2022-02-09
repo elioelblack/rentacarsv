@@ -39,17 +39,15 @@
         <h2 >No hay datos</h2>
     </div>
     <div class="row align-items-center">
-        <form action="/">
-            <div class="card col-3" style="width: 90%; padding: 5px;" th:each="auto : ${list}">
-                <img src="https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/20200212-RANKING-DE-FIABILIDAD-DE-AUTOS-JD-POWER-2020-01.jpg" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${auto.nombre}">Nombre del carro</h5>
-                    <h6 class="card-title" th:text="'$' + ${auto.precioRenta}">Precio: <span>$$$</span></h6>
-                    <p class="card-text" th:text="${auto.idModelo.decripcion}">descripcion</p>
-                    <a class="btn btn-primary" data-toggle="modal" type="button" th:attr="data-target=${'#detalleCarro'+auto.getId()}" data-row="${row}">Ver detalles</a>
-                </div>
+        <div class="card col-3" style="width: 90%; padding: 5px; margin: 5px;" th:each="auto : ${list}">
+            <img src="https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/20200212-RANKING-DE-FIABILIDAD-DE-AUTOS-JD-POWER-2020-01.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${auto.nombre}">Nombre del carro</h5>
+                <h6 class="card-title" th:text="'$' + ${auto.precioRenta}">Precio: <span>$$$</span></h6>
+                <p class="card-text" th:text="${auto.idModelo.decripcion}">descripcion</p>
+                <a class="btn btn-primary" data-toggle="modal" type="button" th:attr="data-target=${'#detalleCarro'+auto.getId()}" data-row="${row}">Ver detalles</a>
             </div>
-        </form>
+        </div>
     </div>
     <div class="row" style="margin: 5px;">
         <div class="col-md-2"></div>

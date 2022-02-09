@@ -28,11 +28,11 @@ public class AutomovilController {
     private static String urlApiRemote = "https://api.quotable.io/random";
 
     @GetMapping("/")
-    public String findAll(@RequestParam Map<String, Object> params, Model model){
+    public String findAllActives(@RequestParam Map<String, Object> params, Model model){
         int page = params.get("page")!=null? (Integer.valueOf(params.get("page").toString())-1):0;
 
         PageRequest pageRequest = PageRequest.of(page,10);
-        Page<Automovil> pageAutomovil = automovilServiceAPI.getAll(pageRequest);
+        Page<Automovil> pageAutomovil = automovilServiceAPI.getAllActives(pageRequest,true, true);
         int totalPage = pageAutomovil.getTotalPages();
         if(totalPage>0){
             List<Integer> pages = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
