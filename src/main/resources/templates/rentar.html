@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="/index :: head">
+    <meta charset="UTF-8">
+    <title>Rentar Automóvil</title>
+</head>
+<body>
+    <nav th:replace="/index :: navigation">
+    </nav>
+    <main class="container" sec:authorize="isAuthenticated()">
+        <div class="row align-items-center"  th:object="${auto}">
+            <div class="card col-3" style="padding: 5px; margin: 5px;">
+                <img src="https://www.elcarrocolombiano.com/wp-content/uploads/2020/02/20200212-RANKING-DE-FIABILIDAD-DE-AUTOS-JD-POWER-2020-01.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${auto.nombre}">Nombre del carro</h5>
+                    <h6 class="card-title" th:text="'$' + ${auto.precioRenta}">Precio: <span>$$$</span></h6>
+                    <p class="card-text" th:text="${auto.idModelo.decripcion}">descripcion</p>
+                </div>
+            </div>
+            <div class="card col-3" style="padding: 5px; margin: 5px;">
+                <form th:action="@{|/save/audit/${auto.getId()}|}" th:object="${audit}" method="post">
+                    <h4>Confirmar renta de vehículo</h4>
+                    <input class="form-control mt-1" placeholder="XXXX-XXXX-XXXX-XX" type="text" required />
+                    <div class="invalid-feedback">
+                        Porfavor ingresa el numero de tarjeta
+                    </div>
+                    <input class="form-control mt-1" placeholder="Numero de días" type="number" min="1" required />
+                    <input type="hidden" th:field="*{idAutomovil}" th:value="${auto}"  />
+                    <button class="btn btn-primary m-1" type="submit"  >Rentar</button>
+                    <a class="btn btn-danger m-1" href="/index" >Cancelar</a>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

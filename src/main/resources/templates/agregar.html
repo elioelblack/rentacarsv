@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="/index :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <nav th:replace="/index :: navigation">
+    </nav>
+    <main class="container">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Agregar nuevo carro</h5>
+                <form th:action="@{/save}" th:object="${automovil}" method="POST">
+                    <div class="row">
+                        <div class="col">
+                            <label for="nombre">Nombre del auto:</label>
+                            <input type="text" class="form-control mb-2" th:field="*{nombre}" placeholder="Nombre" id="nombre" required>
+                            <input type="hidden" name="id" id="id" th:field="*{id}" />
+                            <label for="modelo">Modelo:</label>
+                            <select  id="modelo" class="form-control mb-2" th:field="*{idModelo}" required>
+                                <option th:each=" modelo : ${listaModelo}" th:text="${modelo.getDecripcion()}" th:value="${modelo.getId()}" selected>Choose...</option>
+                            </select>
+                            <label for="imagen">URL de la imagen:</label>
+                            <input type="text" class="form-control mb-2" placeholder="URL" id="imagen">
+                        </div>
+                        <div class="col">
+                            <label for="tipo">Tipo de auto:</label>
+                            <input type="text" class="form-control mb-2" th:field="*{tipo}" placeholder="Tipo de auto" id="tipo" required>
+                            <label for="anio">Año:</label>
+                            <input type="text" class="form-control mb-2" placeholder="Año" id="anio" th:field="*{anio}" required>
+                            <label for="precio">Precio de renta:</label>
+                            <input type="text" class="form-control mb-2" placeholder="Precio" id="precio" th:field="*{precioRenta}" required>
+                        </div>
+                        <div class="col-12">
+                            <label th:for="${#ids.next('activo')}" >Activo</label>
+                            <input type="checkbox" th:field="*{activo}" />
+                        </div>
+                        <div class="col-12">
+                            <label th:for="${#ids.next('disponible')}" >Disponible</label>
+                            <input type="checkbox" th:field="*{disponible}" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    <a href="/administrador" class="btn btn-primary mt-3">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </main>
+</html>

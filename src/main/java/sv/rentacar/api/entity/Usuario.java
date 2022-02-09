@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name="ud_usuario")
+    @Column(name="id_usuario")
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Integer id;
 
@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
     @NotNull
     private String password;
 
-    @Column(name = "nombre")
+    @Column(name = "nombres")
     @Size(max = 100)
     @NotNull
     private String nombres;
